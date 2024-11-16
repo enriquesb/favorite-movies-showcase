@@ -1,0 +1,39 @@
+#root {
+  background-color: #14171c;
+  color: #556678;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  max-width: 1080px;
+  text-align: center;
+}
+
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+}
+
+.movie-poster,
+.empty-slot {
+  background-color: red;
+}
+
+.movie-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .poster-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
