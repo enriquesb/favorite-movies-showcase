@@ -16,9 +16,29 @@ main {
 
 .poster-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  grid-auto-rows: 1fr;
   gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+@media (max-width: 800px) {
+  main {
+    max-width: 600px;
+  }
+
+  .poster-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  }
+}
+
+@media (max-width: 400px) {
+  .poster-grid {
+    grid-template-columns: 1fr; /* 1 column */
+  }
+
+  main {
+    max-width: 300px;
+  }
 }
 
 .movie-poster,
@@ -30,10 +50,4 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-@media (max-width: 900px) {
-  .poster-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
