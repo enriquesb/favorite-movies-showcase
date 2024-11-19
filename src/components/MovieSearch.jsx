@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchMovies } from '../services/movies.js'
 
-export function MovieSearch() {
+export function MovieSearch({ favoriteMovies, setFavoriteMovies }) {
 
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
@@ -21,7 +21,23 @@ export function MovieSearch() {
         }
     }
 
-    const movieOptions = searchResult.map(option => <li key={option.imdbID}>{option.title}</li>)
+    function addToFavorite(movieData) {
+        setFavoriteMovies([...favoriteMovies, {
+            imdbID: movieData.imdbID,
+            title: movieData.title,
+            poster: movieData.poster
+        }])
+    }
+
+    const movieOptions = searchResult.map(option => (
+        <li key={option.imdbID} onClick={() => handleOptionClick(option)}>{option.title} ({option.year})</li>
+    ))
+
+    function handleOptionClick(option) {
+        addToFavorite(option);
+        setQuery("");
+        setSearchResult([]);
+    }
 
 
     return (

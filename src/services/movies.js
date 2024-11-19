@@ -22,7 +22,7 @@ export async function fetchMovies(movieQuery) {
             title: movie.Title,
             year: movie.Year,
             imdbID: movie.imdbID,
-            poster: movie.poster,
+            poster: movie.Poster,
         }))
 
     } catch (error) {

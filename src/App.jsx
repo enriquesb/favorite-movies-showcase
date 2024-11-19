@@ -11,7 +11,9 @@ function App() {
     <main>
       <h1>Favorite Movies</h1>
       <PosterGrid favoriteMovies={favoriteMovies} />
-      <MovieSearch />
+      <MovieSearch
+        favoriteMovies={favoriteMovies}
+        setFavoriteMovies={setFavoriteMovies} />
     </main>
   )
 }
