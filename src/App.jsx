@@ -10,7 +10,9 @@ function App() {
   return (
     <main>
       <h1>Favorite Movies</h1>
-      <PosterGrid favoriteMovies={favoriteMovies} />
+      <PosterGrid
+        favoriteMovies={favoriteMovies}
+        setFavoriteMovies={setFavoriteMovies} />
       <MovieSearch
         favoriteMovies={favoriteMovies}
         setFavoriteMovies={setFavoriteMovies} />
