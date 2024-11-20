@@ -2,26 +2,22 @@ import './App.css'
 import { useState } from 'react'
 import { PosterGrid } from './components/PosterGrid';
 import { MovieSearch } from './components/MovieSearch'
-import { initialFavoriteMovies } from './consts.js'
+import { FavoriteMovieProvider } from './context/FavoriteMovieContext.jsx';
 
 function App() {
-  const [favoriteMovies, setFavoriteMovies] = useState(initialFavoriteMovies);
   const [showSearch, setShowSearch] = useState(false)
 
   return (
-    <main>
+    <FavoriteMovieProvider>
       <h1>Favorite Movies</h1>
       <PosterGrid
-        favoriteMovies={favoriteMovies}
-        setFavoriteMovies={setFavoriteMovies}
         setShowSearch={setShowSearch}
       />
       {showSearch && <MovieSearch
-        favoriteMovies={favoriteMovies}
-        setFavoriteMovies={setFavoriteMovies}
         setShowSearch={setShowSearch} />}
 
-    </main>
+    </FavoriteMovieProvider>
+
   )
 }
 

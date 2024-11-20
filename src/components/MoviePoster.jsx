@@ -1,6 +1,8 @@
+import { useFavoriteMovies } from '../context/FavoriteMovieContext.jsx'
+export function MoviePoster({ movie }) {
 
+    const { favoriteMovies, setFavoriteMovies } = useFavoriteMovies();
 
-export function MoviePoster({ movie, favoriteMovies, setFavoriteMovies }) {
     function handleDelete() {
         setFavoriteMovies(favoriteMovies.filter(option => option.imdbID !== movie.imdbID))
     }

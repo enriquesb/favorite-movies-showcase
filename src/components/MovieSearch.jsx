@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { fetchMovies } from '../services/movies.js'
+import { useFavoriteMovies } from '../context/FavoriteMovieContext.jsx';
 
-export function MovieSearch({ favoriteMovies, setFavoriteMovies, setShowSearch }) {
+export function MovieSearch({ setShowSearch }) {
+
+    const { favoriteMovies, setFavoriteMovies } = useFavoriteMovies();
+
+
 
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
