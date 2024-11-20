@@ -1,7 +1,7 @@
 import { MoviePoster } from './MoviePoster.jsx'
 import { EmptySlot } from './EmptySlot.jsx'
 
-export function PosterGrid({ favoriteMovies, setFavoriteMovies }) {
+export function PosterGrid({ favoriteMovies, setFavoriteMovies, setShowSearch }) {
     const moviePosters = favoriteMovies.map(movie =>
         <MoviePoster
             key={movie.imdbID}
@@ -14,7 +14,7 @@ export function PosterGrid({ favoriteMovies, setFavoriteMovies }) {
 
     const emptySlots = Array(emptySlotsNeeded)
         .fill(null)
-        .map((_, index) => <EmptySlot key={`key-${index}`} />)
+        .map((_, index) => <EmptySlot key={`key-${index}`} setShowSearch={setShowSearch} />)
 
     return (<div className='poster-grid'>
         {moviePosters}

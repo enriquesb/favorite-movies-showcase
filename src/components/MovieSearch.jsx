@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { fetchMovies } from '../services/movies.js'
 
-export function MovieSearch({ favoriteMovies, setFavoriteMovies }) {
+export function MovieSearch({ favoriteMovies, setFavoriteMovies, setShowSearch }) {
 
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
@@ -37,11 +37,17 @@ export function MovieSearch({ favoriteMovies, setFavoriteMovies }) {
         addToFavorite(option);
         setQuery("");
         setSearchResult([]);
+        setShowSearch(false);
+    }
+
+    function handleCloseSearch() {
+        setShowSearch(false);
     }
 
 
     return (
         <div className="movie-search">
+            <button onClick={handleCloseSearch}>close</button>
             <p>Movie Search</p>
             <input value={query} onChange={(e) => setQuery(e.target.value)} />
             <button onClick={handleSearch}>Search Movies</button>

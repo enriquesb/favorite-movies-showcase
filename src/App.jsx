@@ -6,16 +6,21 @@ import { initialFavoriteMovies } from './consts.js'
 
 function App() {
   const [favoriteMovies, setFavoriteMovies] = useState(initialFavoriteMovies);
+  const [showSearch, setShowSearch] = useState(false)
 
   return (
     <main>
       <h1>Favorite Movies</h1>
       <PosterGrid
         favoriteMovies={favoriteMovies}
-        setFavoriteMovies={setFavoriteMovies} />
-      <MovieSearch
+        setFavoriteMovies={setFavoriteMovies}
+        setShowSearch={setShowSearch}
+      />
+      {showSearch && <MovieSearch
         favoriteMovies={favoriteMovies}
-        setFavoriteMovies={setFavoriteMovies} />
+        setFavoriteMovies={setFavoriteMovies}
+        setShowSearch={setShowSearch} />}
+
     </main>
   )
 }
