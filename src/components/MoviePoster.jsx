@@ -1,15 +1,13 @@
-import { useFavoriteMovies } from '../context/FavoriteMovieContext.jsx'
+import { useManageFavoriteMovies } from '../hooks/useManageFavoriteMovies.jsx';
+
 export function MoviePoster({ movie }) {
 
-    const { favoriteMovies, setFavoriteMovies } = useFavoriteMovies();
+    const { removeFromFavorites } = useManageFavoriteMovies();
 
-    function handleDelete() {
-        setFavoriteMovies(favoriteMovies.filter(option => option.imdbID !== movie.imdbID))
-    }
     return (
         <div className='movie-poster'>
             <img src={movie.poster} alt={`${movie.title} Poster`} />
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={() => removeFromFavorites(movie)}>Delete</button>
         </div>
     )
 }

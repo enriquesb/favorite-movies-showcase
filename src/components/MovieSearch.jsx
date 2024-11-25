@@ -1,13 +1,9 @@
 import { useState } from 'react'
 import { fetchMovies } from '../services/movies.js'
-import { useFavoriteMovies } from '../context/FavoriteMovieContext.jsx';
+import { useManageFavoriteMovies } from '../hooks/useManageFavoriteMovies.jsx';
 
 export function MovieSearch({ setShowSearch }) {
-
-    const { favoriteMovies, setFavoriteMovies } = useFavoriteMovies();
-
-
-
+    const { addToFavorites } = useManageFavoriteMovies();
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
 
@@ -26,20 +22,12 @@ export function MovieSearch({ setShowSearch }) {
         }
     }
 
-    function addToFavorite(movieData) {
-        setFavoriteMovies([...favoriteMovies, {
-            imdbID: movieData.imdbID,
-            title: movieData.title,
-            poster: movieData.poster
-        }])
-    }
-
     const movieOptions = searchResult.map(option => (
         <li key={option.imdbID} onClick={() => handleOptionClick(option)}>{option.title} ({option.year})</li>
     ))
 
     function handleOptionClick(option) {
-        addToFavorite(option);
+        addToFavorites(option);
         setQuery("");
         setSearchResult([]);
         setShowSearch(false);

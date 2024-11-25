@@ -1,10 +1,10 @@
 import { MoviePoster } from './MoviePoster.jsx'
 import { EmptySlot } from './EmptySlot.jsx'
-import { useFavoriteMovies } from '../context/FavoriteMovieContext.jsx';
+import { useManageFavoriteMovies } from '../hooks/useManageFavoriteMovies.jsx';
 
 export function PosterGrid({ setShowSearch }) {
 
-    const { favoriteMovies } = useFavoriteMovies();
+    const { favoriteMovies } = useManageFavoriteMovies();
 
     const moviePosters = favoriteMovies.map(movie =>
         <MoviePoster

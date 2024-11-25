@@ -2,13 +2,13 @@ import './App.css'
 import { useState } from 'react'
 import { PosterGrid } from './components/PosterGrid';
 import { MovieSearch } from './components/MovieSearch'
-import { FavoriteMovieProvider } from './context/FavoriteMovieContext.jsx';
+import { FavoriteMoviesProvider } from './context/FavoriteMoviesContext.jsx';
 
 function App() {
   const [showSearch, setShowSearch] = useState(false)
 
   return (
-    <FavoriteMovieProvider>
+    <FavoriteMoviesProvider>
       <h1>Favorite Movies</h1>
       <PosterGrid
         setShowSearch={setShowSearch}
@@ -16,7 +16,7 @@ function App() {
       {showSearch && <MovieSearch
         setShowSearch={setShowSearch} />}
 
-    </FavoriteMovieProvider>
+    </FavoriteMoviesProvider>
 
   )
 }
