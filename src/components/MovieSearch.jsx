@@ -7,6 +7,7 @@ export function MovieSearch({ setShowSearch }) {
     const { addToFavorites } = useManageFavoriteMovies();
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const movieOptions = searchResult.map(option => (
         <li key={option.imdbID} onClick={() => handleOptionClick(option)}>{option.title} ({option.year})</li>
@@ -26,6 +27,7 @@ export function MovieSearch({ setShowSearch }) {
     function handleChange(e) {
         const newQuery = e.target.value;
         setQuery(newQuery);
+        setSearchResult([]);
         debouncedGetMovies(newQuery);
     }
 
@@ -33,8 +35,11 @@ export function MovieSearch({ setShowSearch }) {
         debounce(async (query) => {
             if (query.trim() === "") {
                 setSearchResult([]);
+                setIsLoading(false);
                 return;
             }
+
+            setIsLoading(true);
 
             try {
                 const movies = await fetchMovies(query);
@@ -42,6 +47,8 @@ export function MovieSearch({ setShowSearch }) {
             } catch (error) {
                 console.error("Error", error);
                 setSearchResult([]);
+            } finally {
+                setIsLoading(false)
             }
         }, 400)
         , [])
@@ -52,6 +59,7 @@ export function MovieSearch({ setShowSearch }) {
             <button onClick={handleCloseSearch}>close</button>
             <p>Movie Search</p>
             <input value={query} onChange={handleChange} />
+            {isLoading && <p>Loading...</p>}
             {searchResult && <ul>{movieOptions}</ul>}
         </div>
     )
