@@ -4,7 +4,7 @@ import { useManageFavoriteMovies } from '../hooks/useManageFavoriteMovies.jsx';
 import debounce from 'just-debounce-it';
 
 export function MovieSearch({ setShowSearch }) {
-    const { addToFavorites } = useManageFavoriteMovies();
+    const { favoriteMovies, addToFavorites } = useManageFavoriteMovies();
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,9 @@ export function MovieSearch({ setShowSearch }) {
 
             try {
                 const movies = await fetchMovies(query);
-                setSearchResult(movies || []);
+                const favoriteIds = favoriteMovies.map(movie => movie.imdbID);
+                const filteredMovies = movies.filter(movie => !favoriteIds.includes(movie.imdbID))
+                setSearchResult(filteredMovies || []);
             } catch (error) {
                 console.error("Error", error);
                 setSearchResult([]);
@@ -51,7 +53,7 @@ export function MovieSearch({ setShowSearch }) {
                 setIsLoading(false)
             }
         }, 400)
-        , [])
+        , [favoriteMovies])
 
 
     return (
