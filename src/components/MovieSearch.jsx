@@ -4,10 +4,11 @@ import { useManageFavoriteMovies } from '../hooks/useManageFavoriteMovies.jsx';
 import debounce from 'just-debounce-it';
 
 export function MovieSearch({ setShowSearch }) {
-    const { addToFavorites } = useManageFavoriteMovies();
+    const { favoriteMovies, addToFavorites } = useManageFavoriteMovies();
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const movieOptions = searchResult.map(option => (
         <li key={option.imdbID} onClick={() => handleOptionClick(option)}>{option.title} ({option.year})</li>
@@ -27,6 +28,7 @@ export function MovieSearch({ setShowSearch }) {
     function handleChange(e) {
         const newQuery = e.target.value;
         setQuery(newQuery);
+        setHasSearched(true);
         setSearchResult([]);
         debouncedGetMovies(newQuery);
     }
@@ -43,7 +45,9 @@ export function MovieSearch({ setShowSearch }) {
 
             try {
                 const movies = await fetchMovies(query);
-                setSearchResult(movies || []);
+                const favoriteIds = favoriteMovies.map(movie => movie.imdbID);
+                const filteredMovies = movies.filter(movie => !favoriteIds.includes(movie.imdbID))
+                setSearchResult(filteredMovies || []);
             } catch (error) {
                 console.error("Error", error);
                 setSearchResult([]);
@@ -51,7 +55,9 @@ export function MovieSearch({ setShowSearch }) {
                 setIsLoading(false)
             }
         }, 400)
-        , [])
+        , [favoriteMovies])
+
+    const showNoResult = hasSearched && !isLoading && searchResult.length == 0 && query.trim() !== "";
 
 
     return (
@@ -61,6 +67,7 @@ export function MovieSearch({ setShowSearch }) {
             <input value={query} onChange={handleChange} />
             {isLoading && <p>Loading...</p>}
             {searchResult && <ul>{movieOptions}</ul>}
+            {showNoResult && <p>No movies found for your query.</p>}
         </div>
     )
 }
