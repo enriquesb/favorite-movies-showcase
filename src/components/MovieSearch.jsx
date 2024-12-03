@@ -8,6 +8,7 @@ export function MovieSearch({ setShowSearch }) {
     const [query, setQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [hasSearched, setHasSearched] = useState(false);
 
     const movieOptions = searchResult.map(option => (
         <li key={option.imdbID} onClick={() => handleOptionClick(option)}>{option.title} ({option.year})</li>
@@ -27,6 +28,7 @@ export function MovieSearch({ setShowSearch }) {
     function handleChange(e) {
         const newQuery = e.target.value;
         setQuery(newQuery);
+        setHasSearched(true);
         setSearchResult([]);
         debouncedGetMovies(newQuery);
     }
@@ -55,6 +57,8 @@ export function MovieSearch({ setShowSearch }) {
         }, 400)
         , [favoriteMovies])
 
+    const showNoResult = hasSearched && !isLoading && searchResult.length == 0 && query.trim() !== "";
+
 
     return (
         <div className="movie-search">
@@ -63,6 +67,7 @@ export function MovieSearch({ setShowSearch }) {
             <input value={query} onChange={handleChange} />
             {isLoading && <p>Loading...</p>}
             {searchResult && <ul>{movieOptions}</ul>}
+            {showNoResult && <p>No movies found for your query.</p>}
         </div>
     )
 }
