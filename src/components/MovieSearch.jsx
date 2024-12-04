@@ -66,7 +66,7 @@ export function MovieSearch({ setShowSearch }) {
             <div className='modal-box'>
                 <div className="movie-search">
                     <button className='close-button' onClick={handleCloseSearch}>X</button>
-                    <p>Pick a Favorite Movie</p>
+                    <h3>Pick a Favorite Movie</h3>
                     <input value={query} onChange={handleChange} className='search-input' />
                     {isLoading && <p className='loading-message'>Loading...</p>}
                     {showNoResult && <p className='no-result-message'>No movies found for your query.</p>}
