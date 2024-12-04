@@ -9,12 +9,14 @@ function App() {
 
   return (
     <FavoriteMoviesProvider>
-      <h1>Favorite Movies</h1>
-      <PosterGrid
-        setShowSearch={setShowSearch}
-      />
-      {showSearch && <MovieSearch
-        setShowSearch={setShowSearch} />}
+      <main>
+        <h1>Favorite Movies Showcase</h1>
+        <PosterGrid
+          setShowSearch={setShowSearch}
+        />
+        {showSearch && <MovieSearch
+          setShowSearch={setShowSearch} />}
+      </main>
 
     </FavoriteMoviesProvider>
 

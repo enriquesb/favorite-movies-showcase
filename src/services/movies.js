@@ -1,9 +1,9 @@
 const omdb_key = import.meta.env.VITE_omdb_key;
 
 export async function fetchMovies(movieQuery) {
-    if (movieQuery === '') return null
+    if (movieQuery === '') return []
 
-    const url = `http://www.omdbapi.com/?apikey=${omdb_key}&s=${movieQuery}&type=movie`
+    const url = `https://www.omdbapi.com/?apikey=${omdb_key}&s=${movieQuery}&type=movie`
 
     try {
         const response = await fetch(url);
@@ -14,9 +14,9 @@ export async function fetchMovies(movieQuery) {
 
         const json = await response.json();
 
-        if (json.Response === "False") return null
+        if (json.Response === "False") return []
 
-        const movies = json.Search;
+        const movies = json.Search || [];
 
         return movies?.map(movie => ({
             title: movie.Title,
@@ -27,7 +27,6 @@ export async function fetchMovies(movieQuery) {
 
     } catch (error) {
         console.error('Error fetching data', error)
-        throw error
-
+        return []
     }
 }
