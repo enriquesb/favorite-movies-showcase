@@ -28,7 +28,6 @@ export function MovieSearch({ setShowSearch }) {
     function handleChange(e) {
         const newQuery = e.target.value;
         setQuery(newQuery);
-        setHasSearched(true);
         setSearchResult([]);
         debouncedGetMovies(newQuery);
     }
@@ -38,6 +37,7 @@ export function MovieSearch({ setShowSearch }) {
             if (query.trim() === "") {
                 setSearchResult([]);
                 setIsLoading(false);
+                setHasSearched(false);
                 return;
             }
 
@@ -52,7 +52,8 @@ export function MovieSearch({ setShowSearch }) {
                 console.error("Error", error);
                 setSearchResult([]);
             } finally {
-                setIsLoading(false)
+                setIsLoading(false);
+                setHasSearched(true);
             }
         }, 400)
         , [favoriteMovies])
@@ -61,13 +62,22 @@ export function MovieSearch({ setShowSearch }) {
 
 
     return (
-        <div className="movie-search">
-            <button onClick={handleCloseSearch}>close</button>
-            <p>Movie Search</p>
-            <input value={query} onChange={handleChange} />
-            {isLoading && <p>Loading...</p>}
-            {searchResult && <ul>{movieOptions}</ul>}
-            {showNoResult && <p>No movies found for your query.</p>}
+        <div className='modal-overlay'>
+            <div className='modal-box'>
+                <div className="movie-search">
+                    <button className='close-button' onClick={handleCloseSearch}>X</button>
+                    <p>Pick a Favorite Movie</p>
+                    <input value={query} onChange={handleChange} className='search-input' />
+                    {isLoading && <p className='loading-message'>Loading...</p>}
+                    {showNoResult && <p className='no-result-message'>No movies found for your query.</p>}
+                </div>
+
+                {searchResult.length > 0 && (
+                    <div className='search-results'>
+                        <ul className='fetched-movie-list'>{movieOptions}</ul>
+                    </div>)}
+
+            </div>
         </div>
     )
 }
