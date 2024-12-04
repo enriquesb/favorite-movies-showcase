@@ -1,8 +1,17 @@
-# React + Vite
+# Favorite Movies Showcase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This responsive application allows the users to display their favorite movies. Users can easily search by movie title and select their top picks. Inspired by Letterboxd.
 
-Currently, two official plugins are available:
+## Technologies used:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ReactJS: state, context, custom hooks.
+- Styling: CSS, grid layout.
+- API: OMDb API (The Open Movie Database)
+
+Demo:
+Check out the live demo here: [https://favorite-movies-showcase.onrender.com/](https://favorite-movies-showcase.onrender.com/)
+
+### Screenshot:
+![image](https://github.com/user-attachments/assets/62bfdeab-cd16-418f-93e0-14d348d8baa8)
+
+
